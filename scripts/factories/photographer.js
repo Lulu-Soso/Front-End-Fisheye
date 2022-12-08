@@ -8,11 +8,11 @@ function photographerFactory(data) {
         img.setAttribute("src", picture)
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
-        const dataCity = document.createElement( 'p' );
+        const dataCity = document.createElement( 'h4' );
         dataCity.textContent = city;
         const dataTagline = document.createElement( 'p' );
         dataTagline.textContent = tagline;
-        const dataPrice = document.createElement( 'p' );
+        const dataPrice = document.createElement( 'span' );
         dataPrice.textContent = price + "€/jour";
 
         article.appendChild(img);
