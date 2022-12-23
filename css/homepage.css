@@ -13,6 +13,16 @@
     flex-direction: column;
 }
 
+.photographer_section article a {
+    /* justify-self: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+    /* color: black; */
+}
+
 .photographer_section article h2 {
     color: #D3573C;
     font-size: 36px;
