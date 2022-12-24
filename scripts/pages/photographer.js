@@ -28,8 +28,9 @@ async function displayPhotographerMedias(id) {
   let medias = await getPhotographerMedias(id);
 
   // Generation DOM
-  let mediaContent = document.createElement("div");
-  mediaContent.classList.add("media-content");
+  // let mediaContent = document.createElement("div");
+  // mediaContent.classList.add("media-content");
+  let mediaContent = document.querySelector('.medias_section')
 
   medias.forEach((media) => {
     let mediaCardDom = mediaFactory(media).getMediaCardDOM();
