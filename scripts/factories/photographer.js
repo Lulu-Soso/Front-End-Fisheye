@@ -33,6 +33,9 @@ function photographerFactory(data) {
 
   function getUserPageDOM() {
     const photographerHeader = document.querySelector(".photograph-header");
+    const contactHeader = document.querySelector(".modal")
+    const h3 = document.createElement("h3");
+    h3.textContent = name;
     const div = document.createElement("div")
     div.classList.add("infos-photographer")
     const divInfosPhotographer = div
@@ -50,6 +53,7 @@ function photographerFactory(data) {
     // dataPrice.textContent = price + "€/jour";
 
     photographerHeader.appendChild(a);
+    contactHeader.appendChild(h3)
     a.appendChild(img);
     photographerHeader.appendChild(divInfosPhotographer);
     divInfosPhotographer.appendChild(h2);
