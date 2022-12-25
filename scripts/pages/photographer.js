@@ -8,7 +8,6 @@ const main = document.querySelector("#main");
 
 const { getPhotographer, getPhotographerMedias } = dataApi();
 
-
 //////////////////////// Details of photographer ////////////////////////
 async function displayPhotographerDetails(id) {
   // Recuperation du photographe
@@ -20,9 +19,8 @@ async function displayPhotographerDetails(id) {
 
   // Affichage
   photographerHeader.append(photographerCardDom);
-  main.append(insertDom)
+  main.append(insertDom);
 }
-
 
 //////////////////////// Medias ////////////////////////
 async function displayPhotographerMedias(id) {
@@ -30,9 +28,7 @@ async function displayPhotographerMedias(id) {
   let medias = await getPhotographerMedias(id);
 
   // Generation DOM
-  // let mediaContent = document.createElement("div");
-  // mediaContent.classList.add("media-content");
-  let mediaContent = document.querySelector('.medias_section')
+  let mediaContent = document.querySelector(".medias_section");
 
   medias.forEach((media) => {
     let mediaCardDom = mediaFactory(media).getMediaCardDOM();
@@ -40,6 +36,15 @@ async function displayPhotographerMedias(id) {
   });
 
   main.append(mediaContent);
+
+  // Calcul du total des likes
+  let totalLikes = mediaFactory(medias).totalLikes(medias);
+
+  // Affichage du total des likes dans la page web
+  let likesContent = document.querySelector(".insert");
+  let pLikes = document.querySelector("p");
+  pLikes.textContent = totalLikes;
+  likesContent.appendChild(pLikes);
 }
 
 async function init() {
