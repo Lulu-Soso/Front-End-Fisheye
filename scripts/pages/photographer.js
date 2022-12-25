@@ -42,7 +42,8 @@ async function displayPhotographerMedias(id) {
 
   // Affichage du total des likes dans la page web
   let likesContent = document.querySelector(".insert");
-  let pLikes = document.querySelector("p");
+  let pLikes = document.createElement("p");
+  pLikes.classList.add("numbLikes")
   pLikes.textContent = totalLikes;
   likesContent.appendChild(pLikes);
 }
