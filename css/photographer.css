@@ -134,3 +134,14 @@ form input {
     border: none;
     border-radius: 5px;
 }
+
+.insert {
+    background-color: #DB8876;
+    width: 375px;
+    height: 89px;
+    position: fixed;
+    right: 50px;
+    bottom: 0;
+    z-index: 1;
+    border-radius: 5px;
+}

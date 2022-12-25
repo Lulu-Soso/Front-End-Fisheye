@@ -16,9 +16,11 @@ async function displayPhotographerDetails(id) {
 
   // Generation DOM
   let photographerCardDom = photographerFactory(photographer).getUserPageDOM();
+  let insertDom = photographerFactory(photographer).getInsertDOM();
 
   // Affichage
   photographerHeader.append(photographerCardDom);
+  main.append(insertDom)
 }
 
 
