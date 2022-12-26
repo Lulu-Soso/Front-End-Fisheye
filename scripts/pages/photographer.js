@@ -42,10 +42,16 @@ async function displayPhotographerMedias(id) {
 
   // Affichage du total des likes dans la page web
   let likesContent = document.querySelector(".insert");
+  let likesDiv = document.createElement("div");
+  likesDiv.classList.add("insert-likes")
+  likesDiv.innerHTML = "<i class='fa-solid fa-heart'></i>"
   let pLikes = document.createElement("p");
-  pLikes.classList.add("numbLikes")
+  pLikes.classList.add("numb-likes")
+
   pLikes.textContent = totalLikes;
-  likesContent.appendChild(pLikes);
+
+  likesDiv.appendChild(pLikes);
+  likesContent.appendChild(likesDiv);
 }
 
 async function init() {

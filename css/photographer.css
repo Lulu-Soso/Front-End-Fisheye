@@ -149,13 +149,33 @@ form input {
     align-items: center;
 }
 
-.insert .numbLikes {
-    order: -1;
+/* .insert .numb-likes {
     font-size: 24px;
     font-weight: 500;
+} */
+
+.insert span {
+    font-size: 24px;
+    font-weight: 500;
+    order: -1;
 }
 
 .insert p {
     font-size: 24px;
     font-weight: 500;
+    order: 1;
+}
+
+.insert .insert-likes {
+    display: flex;
+    align-items: center;
+}
+
+.insert .insert-likes i {
+    order: 2;
+    font-size: 20px;
+}
+
+.insert .insert-likes p {
+    margin-right: 5px;
 }

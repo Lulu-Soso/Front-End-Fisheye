@@ -36,7 +36,6 @@
     color: #901C1C;
     font-size: 24px;
     font-weight: 400;
-    margin-bottom: 0; /* added */
 }
 
 .medias_section article img {
@@ -61,12 +60,16 @@
 .medias_section article p {
     margin: 2px;
     font-size: 15px;
-    /* padding: 0; */
 }
 
 .medias_section article span {
-    /* margin: 2px; */
     font-size: 14px;
     color: #757575;
-    /* padding: 0; */
+    margin-right: 5px;
+}
+
+.medias_section .like-heart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

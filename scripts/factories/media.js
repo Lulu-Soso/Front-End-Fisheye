@@ -27,15 +27,18 @@ export function mediaFactory(data) {
 
     const a = document.createElement("a");
 
-    const div = document.createElement("div");
-    div.classList.add("infos-media");
-    const divInfosMedia = div;
+    const divInfosMedia= document.createElement("div");
+    divInfosMedia.classList.add("infos-media");
 
     // Title
     const titleElement = document.createElement("h2");
     titleElement.textContent = title;
 
     // Likes
+    const likeHeartContent = document.createElement("div");
+    likeHeartContent.classList.add("like-heart")
+    const pHeart = document.createElement("p");
+    pHeart.innerHTML = "<i class='fa-solid fa-heart'></i>"
     const spanElement = document.createElement("span");
     spanElement.textContent = likes;
 
@@ -55,7 +58,9 @@ export function mediaFactory(data) {
     a.appendChild(mediaElement);
     contentElement.appendChild(divInfosMedia);
     divInfosMedia.appendChild(titleElement);
-    divInfosMedia.appendChild(spanElement);
+    divInfosMedia.appendChild(likeHeartContent);
+    likeHeartContent.appendChild(spanElement);
+    likeHeartContent.appendChild(pHeart);
 
     return contentElement;
   }
