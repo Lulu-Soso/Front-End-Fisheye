@@ -1,0 +1,94 @@
+#lightbox_modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(83, 83, 85, 0.4);
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+}
+
+.lightbox-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+} 
+
+.lightbox {
+    /* background-color: #FAFAFA; */
+    background-color: #979494;
+    height: 300px;
+    margin: 0 100px;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.lightbox h2 {
+    color: #D3573C;
+    font-size: 64px;
+    font-weight: 400;
+    margin: 0
+}
+
+.lightbox_button {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.lightboxModal {
+    width: 80%;
+    height: 95%;
+    background-color: white;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.media-lightbox {
+    background-color: pink;
+    width: 84%;
+    height: 90%;
+}
+
+.left-column-lightbox,
+.right-column-lightbox
+ {
+    width: 7%;
+    display: flex;
+    justify-content: center;
+    color: #901C1C;
+    font-size: 35px;
+}
+
+.media-content {
+    background-color: azure;
+    height: 95%;
+}
+.description-media {
+    background-color: aqua;
+    height: 5%;
+}
+
+.right-column-lightbox img
+ {
+    position: absolute;
+    top: 50px;
+    width: 30px;
+}

@@ -30,10 +30,15 @@ export function dataApi(){
         return (await getMedias()).filter(media => media.photographerId === id);
     }
 
+    const getMediaPathById = async (id) => {
+        return (await getMedias()).filter(media => media.photographerId === id);
+    }
+
     return {
         getPhotographers,
         getPhotographer,
         getMedias,
-        getPhotographerMedias
+        getPhotographerMedias,
+        getMediaPathById
     }
 }
