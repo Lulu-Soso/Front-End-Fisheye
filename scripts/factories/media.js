@@ -6,7 +6,7 @@ export async function mediaFactory(data) {
   const {getPhotographer} = dataApi()
 
   const photographer = await getPhotographer(photographerId)
-  const directoryName = photographer.name.replace(/ /, '-')
+  const directoryName = photographer.name.replace(/ /g, '-')
 
   const imgMedia = `assets/medias/${directoryName}/${image}`;
   const vMedia = `assets/medias/${directoryName}/${video}`;
@@ -54,9 +54,11 @@ export async function mediaFactory(data) {
     if (image) {
       mediaElement = getMediaElement("image");
       mediaElement.setAttribute("src", imgMedia);
+      a.setAttribute("href", imgMedia)
     } else if (video) {
       mediaElement = getMediaElement("video");
       mediaElement.setAttribute("src", vMedia);
+      a.setAttribute("href", vMedia)
     } else {
       // Return null if no image or video is provided
       return null;
