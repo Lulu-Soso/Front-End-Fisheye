@@ -2,7 +2,10 @@ export { photographerFactory };
 
 function photographerFactory(data) {
   const { id, name, portrait, city, tagline, price } = data;
-  const picture = `assets/photographers/${portrait}`;
+
+  const mediaPath = name.replace(/ /g, '-')
+
+  const picture = `assets/medias/${mediaPath}/${portrait}`;
   const photographerId = `photographer.html?id=${id}`;
 
   function getUserCardDOM() {

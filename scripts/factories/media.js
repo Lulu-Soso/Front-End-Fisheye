@@ -1,7 +1,15 @@
-export function mediaFactory(data) {
+import { dataApi } from "/scripts/utils/dataApi.js";
+
+export async function mediaFactory(data) {
   const { id, photographerId, title, image, likes, date, price, video } = data;
-  const imgMedia = `assets/medias/${image}`;
-  const vMedia = `assets/medias/${video}`;
+
+  const {getPhotographer} = dataApi()
+
+  const photographer = await getPhotographer(photographerId)
+  const directoryName = photographer.name.replace(/ /, '-')
+
+  const imgMedia = `assets/medias/${directoryName}/${image}`;
+  const vMedia = `assets/medias/${directoryName}/${video}`;
 
   function getMediaElement(type) {
     if (type === "image") {

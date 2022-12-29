@@ -30,10 +30,12 @@ async function displayPhotographerMedias(id) {
   // Generation DOM
   let mediaContent = document.querySelector(".medias_section");
 
-  medias.forEach((media) => {
-    let mediaCardDom = mediaFactory(media).getMediaCardDOM();
+  for (const media of medias) {
+    const mediaFact = await mediaFactory(media)
+
+    let mediaCardDom = mediaFact.getMediaCardDOM();
     mediaContent.append(mediaCardDom);
-  });
+}
 
   main.append(mediaContent);
 
