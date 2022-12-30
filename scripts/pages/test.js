@@ -1,37 +1,81 @@
-import { dataApi } from "/scripts/utils/dataApi.js";
+export function lightboxFactory() {
+  function addClickEventToMediaLinks() {
+    // Sélection des éléments de lien qui sont des images ou des vidéos
+    const mediaLinks = document.querySelectorAll(
+      'a[type="image"], a[type="video"]'
+    );
 
-const { getPhotographer } = dataApi();
+    mediaLinks.forEach((btn) => btn.addEventListener("click", displayLightboxModal));
 
-async function getMediaPathById(photographerId) {
-  // Récupérer les informations sur le photographe à partir de son ID
-  const photographer = await getPhotographer(photographerId);
+    // Ajout d'un événement de clic sur chaque élément de lien
+    for (let i = 0; i < mediaLinks.length; i++) {
+      const link = mediaLinks[i];
+      link.addEventListener("click", (event) => {
+        // Affichage de l'objet d'événement dans la console
+        console.log("rien ne va plus !");
+        console.log(event);
 
-  // Récupérer le nom du photographe
-  const photographerName = photographer.name;
-// console.log(photographerName);
-  // Remplacer les espaces dans le nom du photographe par des tirets
-  const normalizedName = photographerName.replace(/ /g, "-");
-// console.log(normalizedName);
-  // Construire le chemin vers le dossier de médias
-  const mediaPath = `assets/medias/${normalizedName}`;
-// console.log(mediaPath);
+        // Annulation de l'action par défaut du lien (suivre le lien)
+        event.preventDefault();
+        link.displayLightboxModal()
+        console.log(link);
+      });
+    }
+  }
 
-  return mediaPath;
+  function getLightboxDOM() {
+    const lightbox = document.querySelector("#lightbox_modal")
+    const lightboxModal = document.querySelector(".lightbox-modal")
+    const lightboxContent = document.querySelector(".lightbox-content")
+    const leftColumnLightbox = document.querySelector(".left-column-lightbox")
+    const rightColumnLightbox = document.querySelector(".right-column-lightbox")
+    const mediaLightbox = document.querySelector(".media-lightbox")
+
+    lightbox.appendChild(lightboxModal)
+    lightbox.appendChild(lightboxModal)
+    lightbox.appendChild(lightboxContent)
+    lightbox.appendChild(leftColumnLightbox)
+    lightbox.appendChild(rightColumnLightbox)
+    lightbox.appendChild(mediaLightbox)
+
+    return lightbox
+  }
+
+  function displayLightboxModal() {
+    const lightboxModal = document.getElementById("lightbox_modal");
+	lightboxModal.style.display = "block";
 }
 
-export function mediaFactory(data) {
-    const { id, photographerId, title, image, likes, date, price, video } = data;
-    // const imgMedia = `assets/medias/${image}`;
-    // const vMedia = `assets/medias/${video}`;
-  
-    // Appeler la fonction getMediaPathById pour récupérer le chemin vers le dossier de médias
-    // du photographe à partir de son ID
-    const mediaPath = getMediaPathById(photographerId);
-//   console.log(mediaPath);
-  //   // Construire le chemin complet vers le média en ajoutant le nom de fichier à la fin
-    const imgMedia = `${mediaPath}/${image}`;
-    const vMedia = `${mediaPath}/${video}`;
-console.log(imgMedia);
-console.log(vMedia);
-
+function closeLightboxModal() {
+    const lightboxModal = document.getElementById("lightbox_modal");
+    lightboxModal.style.display = "none";
 }
+
+  return {
+    addClickEventToMediaLinks,
+    getLightboxDOM,
+    displayLightboxModal,
+    closeLightboxModal
+  };
+}
+
+
+// <!-- added gallery -->
+//   <div id="lightbox_modal">
+//     <div class="lightbox-modal">
+
+//       <div class="lightbox-content">
+//         <div class="left-column-lightbox">
+//           <i class="fa-solid fa-chevron-left"></i>
+//         </div>
+//         <div class="media-lightbox">
+//           <div class="media-content"></div>
+//           <div class="description-media"></div>
+//         </div>
+//         <div class="right-column-lightbox">
+//           <img src="assets/icons/close-color.svg" onclick="closeLightboxModal()" />
+//           <i class="fa-solid fa-chevron-right"></i>
+//         </div>
+//       </div>
+//     </div>
+//   </div>

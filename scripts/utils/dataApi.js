@@ -30,8 +30,13 @@ export function dataApi(){
         return (await getMedias()).filter(media => media.photographerId === id);
     }
 
-    const getMediaPathById = async (id) => {
-        return (await getMedias()).filter(media => media.photographerId === id);
+    const getPhotographerMediaLikes = async (id) => {
+        let totalLikes = 0;
+        const medias = await getPhotographerMedias(id)
+
+        medias.map(media => totalLikes += media.likes)
+
+        return totalLikes;
     }
 
     return {
@@ -39,6 +44,6 @@ export function dataApi(){
         getPhotographer,
         getMedias,
         getPhotographerMedias,
-        getMediaPathById
+        getPhotographerMediaLikes
     }
 }
