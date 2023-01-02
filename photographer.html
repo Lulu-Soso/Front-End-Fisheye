@@ -24,7 +24,18 @@
         </button>
     </div>
 
-    <div class="medias_section"></div>
+    <div class="medias">
+        <div class="medias_filter">
+            <label for="media_filter">Trier par</label>
+            <select name="media_filter" id="media_filter">
+                <option disabled selected>---</option>
+                <option value="popularity">Popularité</option>
+                <option value="date">Date</option>
+                <option value="title">Titre</option>
+            </select>
+        </div>
+        <div class="medias_section"></div>
+    </div>
 </main>
 
 <div id="contact_modal">
