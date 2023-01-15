@@ -1,10 +1,45 @@
+.medias_filter {
+    margin-top: 20px;
+    /*border: none;*/
+}
+
+.medias_filter label {
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.medias_filter select {
+    width: 170px;
+    height: 30px;
+    background-color: #901C1C;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.medias_filter option {
+    font-size: 18px;
+    font-weight: 700;
+    /*background-color: #901C1C;*/
+    border-bottom: 1px solid #fff;
+}
+
+
 .medias_section {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
-    margin-top: 100px;
-    position: absolute;
-    width: 100%;
+    margin-top: 50px;
+    /*position: absolute;*/
+    /*width: 100%;*/
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    /*flex-wrap: wrap;*/
 }
 
 .medias_section article {
@@ -13,6 +48,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 100%;
 }
 
 .medias_section article .infos-media {
@@ -29,6 +65,7 @@
     align-items: center;
     flex-direction: column;
     text-decoration: none;
+    width: 100%;
     /* color: black; */
 }
 
@@ -40,13 +77,15 @@
 
 .medias_section article img {
     height: 300px;
-    width: 350px;
+    /*width: 350px;*/
+    width: 100%;
     object-fit: cover; /* added */
 }
 
 .medias_section article video {
     height: 300px;
-    width: 350px;
+    /*width: 350px;*/
+    width: 100%;
     object-fit: cover; /* added */
 }
 
@@ -57,14 +96,23 @@
     margin: 0;
 }
 
+.medias_section article button {
+    background: transparent;
+    border: none;
+    color: #901C1C;
+    font-size: 17px;
+    font-weight: 400;
+}
+
 .medias_section article p {
     margin: 2px;
     font-size: 15px;
 }
 
 .medias_section article span {
-    font-size: 14px;
-    color: #757575;
+    font-size: 17px;
+    font-weight: 400;
+    color: #901C1C;
     margin-right: 5px;
 }
 

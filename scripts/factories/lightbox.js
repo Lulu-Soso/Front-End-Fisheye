@@ -37,17 +37,17 @@ export function lightboxFactory() {
     // Récupère l'extension du fichier du média courant
     const fileExtension = currentMedia.link.split(".").pop();
     let html = `
-            <button class="lightbox-close"><i class="fa-solid fa-close"></i></button>
-            <button class="lightbox-prev"><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="lightbox-next"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="lightbox-close"><i aria-hidden="true" class="fa-solid fa-close"></i></button>
+            <button class="lightbox-prev"><i aria-hidden="true" class="fa-solid fa-chevron-left"></i></button>
+            <button class="lightbox-next"><i aria-hidden="true" class="fa-solid fa-chevron-right"></i></button>
             <div class="lightbox-container">
           `;
 
     // Si le média courant est une vidéo au format MP4, ajoute une balise video au contenu HTML ; sinon, ajoute une image
     if (fileExtension === "mp4") {
-      html += `<figure><video><source src="${currentMedia.link}" type="video/mp4"></video><figcaption><span>${currentMedia.title}</span></figcaption></figure>`;
+      html += `<figure><video controls><source src="${currentMedia.link}" type="video/mp4"></video><figcaption><span>${currentMedia.title}</span></figcaption></figure>`;
     } else {
-      html += `<figure><img src="${currentMedia.link}" type="image"alt=""><figcaption><span>${currentMedia.title}</span></figcaption></figure>`;
+      html += `<figure><img src="${currentMedia.link}" type="image" alt=""><figcaption><span>${currentMedia.title}</span></figcaption></figure>`;
     }
 
     // Remplace le contenu HTML de l'élément lightboxDom par le nouveau contenu HTML
@@ -64,7 +64,19 @@ export function lightboxFactory() {
       .querySelector(".lightbox-next")
       .addEventListener("click", (e) => next(e, currentMedia, medias));
 
-    // Retourne l'élément lightboxDom avec son nouveau contenu HTML et ses événements
+    // Gestion de la navigation clavier
+    document.addEventListener('keydown', function(e) {
+      e.preventDefault()
+      if (e.key === 'ArrowLeft') {
+        console.log("yo man à gauche!")
+        prev(e, currentMedia, medias);
+      } else if (e.key === 'ArrowRight') {
+        console.log("yo man à droite!")
+        next(e, currentMedia, medias);
+      }
+    });
+
+  // Retourne l'élément lightboxDom avec son nouveau contenu HTML et ses événements
     return lightboxDom;
   }
 

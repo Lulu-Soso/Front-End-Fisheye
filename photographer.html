@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
@@ -14,7 +14,7 @@
 
 <body>
 <header>
-    <img src="assets/images/logo.png" class="logo"/>
+    <img src="assets/images/logo.png" class="logo" alt="logo-image" aria-label="logo-image"/>
 </header>
 <main id="main">
 
@@ -42,14 +42,14 @@
     <div class="modal">
         <header>
             <h2>Contactez-moi</h2>
-            <img src="assets/icons/close.svg" onclick="closeModal()"/>
+            <img src="assets/icons/close.svg" onclick="closeModal()" alt="image de fermeture modal" aria-label="fermeture du modal"/>
         </header>
         <form>
             <div>
                 <label>Prénom</label>
                 <input/>
             </div>
-            <button class="contact_button">Envoyer</button>
+            <button class="contact_button" aria-label="Envoyer le formulaire de contact">Envoyer</button>
         </form>
     </div>
 </div>

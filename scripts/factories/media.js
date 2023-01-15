@@ -76,6 +76,7 @@ export async function mediaFactory(data) {
         } else if (video) {
             mediaElement = getMediaElement("video");
             mediaElement.setAttribute("src", vMedia);
+            mediaElement.setAttribute("controls", null);
 
             a.setAttribute("href", vMedia)
         } else {
