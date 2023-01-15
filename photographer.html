@@ -14,12 +14,14 @@
 
 <body>
 <header>
-    <img src="assets/images/logo.png" class="logo" alt="logo-image" aria-label="logo-image"/>
+    <!-- Ajouter des aria-label aux éléments de navigation pour les utilisateurs de lecteurs d'écran -->
+    <img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye - photographe" aria-label="logo-image"/>
 </header>
 <main id="main">
 
     <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">
+        <!-- Ajouter des tabindex aux éléments pour permettre un parcours au clavier -->
+        <button tabindex="1" class="contact_button" aria-label="Cliquez ici pour contacter le photographe" onclick="displayModal()">
             Contactez-moi
         </button>
     </div>
@@ -27,7 +29,7 @@
     <div class="medias">
         <div class="medias_filter">
             <label for="media_filter">Trier par</label>
-            <select name="media_filter" id="media_filter">
+            <select name="media_filter" id="media_filter" aria-label="Sélectionnez un filtre pour trier les photographies">
                 <option disabled selected>---</option>
                 <option value="popularity">Popularité</option>
                 <option value="date">Date</option>
@@ -46,17 +48,16 @@
         </header>
         <form>
             <div>
-                <label>Prénom</label>
-                <input/>
+                <label for="firstname">Prénom</label>
+                <input id="firstname" type="text" />
             </div>
             <button class="contact_button" aria-label="Envoyer le formulaire de contact">Envoyer</button>
         </form>
     </div>
 </div>
-<!-- <script src="/scripts/factories/photographer.js" type="module"></script> -->
+
 <script src="scripts/pages/photographer.js" type="module"></script>
 <script src="scripts/utils/contactForm.js"></script>
-<!-- <script src="scripts/pages/index.js" type="module"></script> -->
 </body>
 
 </html>

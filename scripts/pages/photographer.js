@@ -11,6 +11,7 @@ const main = document.querySelector("#main");
 const id = parseInt(new URL(location.href).searchParams.get("id"));
 
 const {getPhotographer, getPhotographerMedias, getPhotographerMediaLikes} = dataApi();
+const { initializeLightbox } = lightboxFactory();
 
 //////////////////////// Details of photographer ////////////////////////
 async function displayPhotographerDetails() {
@@ -31,64 +32,36 @@ async function displayPhotographerMedias() {
     // Recuperation des media du photographer
     let medias = await getPhotographerMedias(id);
 
-    // Afficher les médias filtrés, refactorisés
-    await displayFilteredMedias(medias)
-}
-
-function generateLightbox() {
-    const {buildLightboxDOM} = lightboxFactory();
-
-    // Liste des liens
-    const links = Array.from(document.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'));
-
-    // Listes des medias
-    const gallery = links.map(link => {
-        return {
-            title: link.getAttribute('data-title'),
-            link: link.getAttribute('href')
-        }
-    })
-
-    // Assignation du click pour chaque lien
-    links.forEach(link => link.addEventListener('click', e => {
-        e.preventDefault()
-
-        let media = {
-            title: e.currentTarget.getAttribute('data-title'),
-            link: e.currentTarget.getAttribute('href')
-        }
-
-        let lightboxDOM = buildLightboxDOM(media, gallery)
-        document.body.appendChild(lightboxDOM)
-    }))
+    // Affichage des medias
+    await displayMedias(medias)
 }
 
 async function initFilter() {
-    let medias = await getPhotographerMedias(id)
-    let selectFilter = document.getElementById("media_filter")
+    let medias = await getPhotographerMedias(id);
+    let selectFilter = document.getElementById('media_filter');
 
     // On change
-    selectFilter.addEventListener("change", async function () {
+    selectFilter.addEventListener('change', async function () {
         let filter = selectFilter.value
         medias = await filterMedia(medias, filter)
 
-        // Afficher les médias filtrés
-        await displayFilteredMedias(medias)
+        // Afficher les medias filtrés
+        await displayMedias(medias)
     })
 }
-async function filterMedia(medias, filter) {
 
+async function filterMedia(medias, filter) {
     switch (filter) {
         case 'date':
             medias.sort(function (a, b) {
                 return new Date(b.date) - new Date(a.date)
             })
-            break
+            break;
         case 'title':
             medias.sort(function (a, b) {
-                if (a.title < b.title) {return -1}
-                if (a.title > b.title) {return 1}
-                return 0
+                if (a.title < b.title) { return -1; }
+                if (a.title > b.title) { return 1; }
+                return 0;
             })
             break;
         default:
@@ -96,16 +69,17 @@ async function filterMedia(medias, filter) {
                 return b.likes - a.likes
             })
     }
+
     return medias;
 }
 
-async function displayFilteredMedias(medias) {
-    // Afficher les médias filtrés et regénération du DOM
+async function displayMedias(medias) {
+    // Generation DOM
     let mediaContent = document.querySelector(".medias_section");
-    mediaContent.innerHTML = "";
+    mediaContent.innerHTML = ""
 
-    for (const media of medias) {
-        const mediaFact = await mediaFactory(media)
+    for (const [index, media] of medias.entries()) {
+        const mediaFact = await mediaFactory(index, media)
 
         let mediaCardDom = mediaFact.getMediaCardDOM();
         mediaContent.append(mediaCardDom);
@@ -119,15 +93,14 @@ async function displayFilteredMedias(medias) {
     // Affichage du total des likes dans la page web
     let likesContent = document.querySelector(".insert");
 
-    let likesDiv = document.querySelector(".insert-likes")
-
-    // Pour éviter une duplication du nombre de likes. Si la classe existe, on l'efface.
-    if (likesDiv) {
+    let likesDiv = document.querySelector('.insert-likes');
+    if (likesDiv){
         likesDiv.remove()
     }
 
     likesDiv = document.createElement("div");
     likesDiv.classList.add("insert-likes")
+
     likesDiv.innerHTML = "<i class='fa-solid fa-heart'></i>"
 
     let pLikes = document.createElement("p");
@@ -137,12 +110,11 @@ async function displayFilteredMedias(medias) {
     likesDiv.appendChild(pLikes);
     likesContent.appendChild(likesDiv);
 
-    // Générer le lightbox des médias filtrés
-    generateLightbox()
+    // Initialisation du lightbox
+    initializeLightbox()
 }
 
 async function init() {
-
     // Afficher les details du photographer
     await displayPhotographerDetails();
 

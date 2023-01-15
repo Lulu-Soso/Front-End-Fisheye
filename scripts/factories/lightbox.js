@@ -1,9 +1,42 @@
 export function lightboxFactory() {
   // Crée un élément div avec la classe lightbox
+  let currentPosition = 0;
+  let medias = [];
+
   const lightboxDom = document.createElement("div");
   lightboxDom.classList.add("lightbox");
 
-  
+  function initializeLightbox(){
+    // Liste des liens qui contiennent des images ou des vidéos
+    const links = Array.from(document.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'));
+
+    // Listes des medias en utilisant les liens
+    medias = links.map(link => {
+      return {
+        title: link.getAttribute('data-title'),
+        link: link.getAttribute('href')
+      }
+    })
+
+    // Assignation du click pour chaque lien
+    links.forEach(link => link.addEventListener('click', e => {
+      e.preventDefault()
+
+      // Recuperation de l'élément cliqué
+      const clickedElement = e.currentTarget;
+
+      // recuperation de la position de l'élément cliqué
+      let position = parseInt(clickedElement.getAttribute('data-index'))
+      // création de l'élément lightboxDom
+      let lightboxDOM = buildLightboxDOM(position)
+      // ajout de l'élément lightboxDom dans le DOM
+      document.body.appendChild(lightboxDOM)
+    }))
+
+    // Assignation du click sur le clavier
+    document.addEventListener('keydown', onKeyDown, true)
+  }
+
   // Fonction qui supprime l'élément lightboxDom du DOM lorsqu'elle est appelée
   function close(e) {
     // Empêche l'événement par défaut (par exemple, l'ouverture d'un lien)
@@ -13,39 +46,57 @@ export function lightboxFactory() {
   }
 
   // Fonction qui affiche le média précédent d'une liste de médias donnée en utilisant la fonction buildLightboxDOM
-  function prev(e, currentMedia, medias) {
+  function prev(e) {
     // Empêche l'événement par défaut (par exemple, l'ouverture d'un lien)
     e.preventDefault();
-    // Récupère l'index du média courant dans la liste de médias
-    const i = medias.findIndex((media) => media.link === currentMedia.link);
     // Affiche le média précédent en utilisant la fonction buildLightboxDOM. Si le média courant est le premier de la liste, affiche le dernier média de la liste.
-    buildLightboxDOM(medias[i === 0 ? medias.length - 1 : i - 1], medias);
+    buildLightboxDOM(currentPosition === 0 ? (medias.length - 1) : currentPosition - 1);
   }
 
   // Fonction qui affiche le média suivant d'une liste de médias donnée en utilisant la fonction buildLightboxDOM
-  function next(e, currentMedia, medias) {
+  function next(e) {
     // Empêche l'événement par défaut (par exemple, l'ouverture d'un lien)
     e.preventDefault();
-    // Récupère l'index du média courant dans la liste de médias
-    const i = medias.findIndex((media) => media.link === currentMedia.link);
     // Affiche le média suivant en utilisant la fonction buildLightboxDOM. Si le média courant est le dernier de la liste, affiche le premier média de la liste.
-    buildLightboxDOM(medias[i === medias.length - 1 ? 0 : i + 1], medias);
+    // La condition ternaire vérifie si "currentPosition" est égal à la longueur de "medias" moins 1.
+    // Si c'est vrai, la valeur passée à la fonction "buildLightboxDOM" sera 0.
+    // Si c'est faux, la valeur passée à la fonction "buildLightboxDOM" sera "currentPosition" augmenté de 1.
+    buildLightboxDOM(currentPosition === medias.length - 1 ? 0 : currentPosition + 1);
+  }
+
+  function onKeyDown(e){
+    // événement lorsqu'une touche est enfoncée
+    switch (e.key){
+      case 'ArrowLeft':
+        prev(e);
+        break;
+      case 'ArrowRight':
+        next(e)
+        break;
+      case 'Escape':
+        close(e)
+        break;
+      default:
+        return;
+    }
+    e.preventDefault()
   }
 
   // Fonction qui construit le contenu HTML de l'élément lightboxDom en fonction du média courant et de la liste de médias donnés
-  function buildLightboxDOM(currentMedia, medias) {
+  function buildLightboxDOM(position) {
+    let currentMedia = medias[position];
+
     // Récupère l'extension du fichier du média courant
     const fileExtension = currentMedia.link.split(".").pop();
-    let html = `
-            <button class="lightbox-close"><i aria-hidden="true" class="fa-solid fa-close"></i></button>
-            <button class="lightbox-prev"><i aria-hidden="true" class="fa-solid fa-chevron-left"></i></button>
-            <button class="lightbox-next"><i aria-hidden="true" class="fa-solid fa-chevron-right"></i></button>
-            <div class="lightbox-container">
-          `;
+    let html = `<button class="lightbox-close"><i class="fa-solid fa-close"></i></button>
+              <button class="lightbox-prev"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="lightbox-next"><i class="fa-solid fa-chevron-right"></i></button>
+              <div class="lightbox-container">
+            `;
 
     // Si le média courant est une vidéo au format MP4, ajoute une balise video au contenu HTML ; sinon, ajoute une image
     if (fileExtension === "mp4") {
-      html += `<figure><video controls><source src="${currentMedia.link}" type="video/mp4"></video><figcaption><span>${currentMedia.title}</span></figcaption></figure>`;
+      html += `<figure><video id="video-${position}" controls><source src="${currentMedia.link}" type="video/mp4"></video><figcaption><span>${currentMedia.title}</span></figcaption></figure>`;
     } else {
       html += `<figure><img src="${currentMedia.link}" type="image" alt=""><figcaption><span>${currentMedia.title}</span></figcaption></figure>`;
     }
@@ -55,31 +106,38 @@ export function lightboxFactory() {
 
     // Ajoute des événements qui appellent les fonctions close, prev et next lorsque l'utilisateur clique sur les boutons correspondants
     lightboxDom
-      .querySelector(".lightbox-close")
-      .addEventListener("click", (e) => close(e));
+        .querySelector(".lightbox-close")
+        .addEventListener("click", (e) => close(e));
     lightboxDom
-      .querySelector(".lightbox-prev")
-      .addEventListener("click", (e) => prev(e, currentMedia, medias));
+        .querySelector(".lightbox-prev")
+        .addEventListener("click", (e) => prev(e));
     lightboxDom
-      .querySelector(".lightbox-next")
-      .addEventListener("click", (e) => next(e, currentMedia, medias));
+        .querySelector(".lightbox-next")
+        .addEventListener("click", (e) => next(e));
 
-    // Gestion de la navigation clavier
-    document.addEventListener('keydown', function(e) {
-      e.preventDefault()
-      if (e.key === 'ArrowLeft') {
-        console.log("yo man à gauche!")
-        prev(e, currentMedia, medias);
-      } else if (e.key === 'ArrowRight') {
-        console.log("yo man à droite!")
-        next(e, currentMedia, medias);
-      }
-    });
+    // Mise à jour de la position actuelle
+    currentPosition = position;
 
-  // Retourne l'élément lightboxDom avec son nouveau contenu HTML et ses événements
+    // Gestion de la vidéo
+    let video = lightboxDom.querySelector(`#video-${position}`)
+
+    if (video){
+      document.addEventListener('keyup', function (e) {
+        if (e.code === "Space"){
+          if (video.paused)
+            video.play()
+          else
+            video.pause();
+        }
+
+        e.preventDefault();
+      })
+    }
+
+    // Retourne l'élément lightboxDom avec son nouveau contenu HTML et ses événements
     return lightboxDom;
   }
 
-  // Retourne un objet avec une seule méthode, buildLightboxDOM, qui peut être utilisée pour construire le contenu HTML de l'élément lightboxDom et ajouter les événements correspondants
-  return { buildLightboxDOM };
+  // Appel de la fonction initializeLightbox pour mettre en place le lightbox
+  return {initializeLightbox};
 }

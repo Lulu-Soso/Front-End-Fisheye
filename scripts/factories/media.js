@@ -1,6 +1,6 @@
 import {dataApi} from "/scripts/utils/dataApi.js";
 
-export async function mediaFactory(data) {
+export async function mediaFactory(index, data) {
     const {getPhotographer} = dataApi()
     let {id, photographerId, title, image, likes, date, price, video} = data;
 
@@ -26,6 +26,7 @@ export async function mediaFactory(data) {
 
         const a = document.createElement("a");
         a.setAttribute("data-title", title)
+        a.setAttribute("data-index", index)
 
         const divInfosMedia = document.createElement("div");
         divInfosMedia.classList.add("infos-media");
@@ -37,33 +38,32 @@ export async function mediaFactory(data) {
         // Likes
         const likeHeartContent = document.createElement("div");
         likeHeartContent.classList.add("like-heart")
-        const buttonHeart = document.createElement("button");
-        buttonHeart.innerHTML = "<i class='fa-regular fa-heart'></i>"
+        const pHeart = document.createElement("button");
+        pHeart.innerHTML = "<i class='fa-regular fa-heart'></i>"
 
         const spanElement = document.createElement("span");
         spanElement.textContent = likes;
 
-        buttonHeart.addEventListener('click', () => {
-            let numberLikes = document.querySelector(".numb-likes")
+        pHeart.addEventListener('click', () => {
+            let numberLikes = document.querySelector('.numb-likes')
             let totalLikes = parseInt(numberLikes.innerText)
 
-            if (data.likes === likes) {
+            if (data.likes === likes){
                 likes = data.likes + 1
-                // incrémente de 1 au click du like et change de style au cœur
-                spanElement.textContent = likes;
-                buttonHeart.innerHTML = "<i class='fa-solid fa-heart'></i>"
 
-                // ajout au total des likes dans l'encart
-                totalLikes += 1
-            } else {
+                spanElement.textContent = likes;
+                pHeart.innerHTML = "<i class='fa-solid fa-heart'></i>"
+
+                totalLikes += 1;
+            }else{
                 likes = data.likes
-                // incrémente de 1 au click du like et change de style au cœur
-                spanElement.textContent = likes;
-                buttonHeart.innerHTML = "<i class='fa-regular fa-heart'></i>"
 
-                // retire de 1 au total des likes dans l'encart
-                totalLikes -= 1
+                spanElement.textContent = likes;
+                pHeart.innerHTML = "<i class='fa-regular fa-heart'></i>"
+
+                totalLikes -= 1;
             }
+
             numberLikes.innerText = totalLikes;
         })
 
@@ -90,7 +90,7 @@ export async function mediaFactory(data) {
         divInfosMedia.appendChild(titleElement);
         divInfosMedia.appendChild(likeHeartContent);
         likeHeartContent.appendChild(spanElement);
-        likeHeartContent.appendChild(buttonHeart);
+        likeHeartContent.appendChild(pHeart);
 
         return contentElement;
     }
