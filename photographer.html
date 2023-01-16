@@ -44,14 +44,14 @@
     <div class="modal">
         <header>
             <h2>Contactez-moi</h2>
-            <img src="assets/icons/close.svg" onclick="closeModal()" alt="image de fermeture modal" aria-label="fermeture du modal"/>
+            <img src="assets/icons/close.svg" class="close" onclick="closeModal()" alt="image de fermeture modal" aria-label="fermeture du modal" tabindex="3"/>
         </header>
         <form>
             <div>
                 <label for="firstname">Prénom</label>
-                <input id="firstname" type="text" />
+                <input id="firstname" type="text" tabindex="1"/>
             </div>
-            <button class="contact_button" aria-label="Envoyer le formulaire de contact">Envoyer</button>
+            <button class="contact_button" aria-label="Envoyer le formulaire de contact" tabindex="2">Envoyer</button>
         </form>
     </div>
 </div>

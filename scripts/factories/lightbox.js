@@ -29,18 +29,24 @@ export function lightboxFactory() {
       let position = parseInt(clickedElement.getAttribute('data-index'))
       // création de l'élément lightboxDom
       let lightboxDOM = buildLightboxDOM(position)
+// pour permettre la navigation avec la touche tabulation
+lightboxDom.setAttribute("tabindex", "0");
       // ajout de l'élément lightboxDom dans le DOM
       document.body.appendChild(lightboxDOM)
+      //pour permettre la navigation à l'aide des touches clavier, vous pouvez ajouter un "focus" sur l'élément lightboxDom lorsqu'il est ajouté au DOM
+      lightboxDOM.focus();
     }))
 
     // Assignation du click sur le clavier
-    document.addEventListener('keydown', onKeyDown, true)
+    document.addEventListener('keydown', onKeyUp, true)
   }
 
   // Fonction qui supprime l'élément lightboxDom du DOM lorsqu'elle est appelée
   function close(e) {
     // Empêche l'événement par défaut (par exemple, l'ouverture d'un lien)
     e.preventDefault();
+    // Il est également bon de retirer le focus de l'élément lightboxDom lorsque l'utilisateur ferme le lightbox
+    lightboxDom.blur();
     // Supprime l'élément lightboxDom du DOM en utilisant la méthode removeChild de l'élément parent
     lightboxDom.parentElement.removeChild(lightboxDom);
   }
@@ -64,7 +70,7 @@ export function lightboxFactory() {
     buildLightboxDOM(currentPosition === medias.length - 1 ? 0 : currentPosition + 1);
   }
 
-  function onKeyDown(e){
+  function onKeyUp(e){
     // événement lorsqu'une touche est enfoncée
     switch (e.key){
       case 'ArrowLeft':
