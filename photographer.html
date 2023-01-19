@@ -13,27 +13,36 @@
 </head>
 
 <body>
-<header>
-    <!-- Ajouter des aria-label aux éléments de navigation pour les utilisateurs de lecteurs d'écran -->
-    <img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye - photographe" aria-label="logo-image"/>
+<header role="banner">
+    <div class="header-top">
+        <a href="index.html" title="Accueil">
+            <img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye" aria-label="Logo de Fisheye">
+        </a>
+    </div>
 </header>
 <main id="main">
 
-    <div class="photograph-header">
-        <!-- Ajouter des tabindex aux éléments pour permettre un parcours au clavier -->
-        <button tabindex="1" class="contact_button" aria-label="Cliquez ici pour contacter le photographe" onclick="displayModal()">
-            Contactez-moi
-        </button>
-    </div>
+    <!-- HEADER -->
+    <header id="photograph-profil" aria-label="photographer information">
+        <section id="profil-header" class="photograph-header"></section>
+    </header>
 
     <div class="medias">
+<!--        <div class="medias_filter">-->
+<!--            <label for="media_filter">Trier par</label>-->
+<!--            <select aria-haspopup="listbox" name="media_filter" id="media_filter" aria-label="Sélectionnez un filtre pour trier les photographies">-->
+<!--                <option value="popularity" selected>Popularité</option>-->
+<!--                <option value="date">Date</option>-->
+<!--                <option value="title">Titre</option>-->
+<!--            </select>-->
+<!--        </div>-->
         <div class="medias_filter">
-            <label for="media_filter">Trier par</label>
-            <select name="media_filter" id="media_filter" aria-label="Sélectionnez un filtre pour trier les photographies">
-                <option disabled selected>---</option>
-                <option value="popularity">Popularité</option>
-                <option value="date">Date</option>
-                <option value="title">Titre</option>
+            <label for="media_filter" >Trier par</label>
+            <select aria-haspopup="listbox"  name="media_filter" id="media_filter" aria-label="Sélectionnez un filtre pour trier les photographies">
+                <option  disabled selected>---</option>
+                <option role='option' value="popularity">Popularité</option>
+                <option role='option' value="date">Date</option>
+                <option role='option' value="title">Titre</option>
             </select>
         </div>
         <div class="medias_section"></div>
@@ -42,16 +51,27 @@
 
 <div id="contact_modal">
     <div class="modal">
-        <header>
+        <header >
             <h2>Contactez-moi</h2>
-            <img src="assets/icons/close.svg" class="close" onclick="closeModal()" alt="image de fermeture modal" aria-label="fermeture du modal" tabindex="3"/>
+            <img src="assets/icons/close.svg" class="close" onclick="closeModal()" alt="image de fermeture modal" aria-label="fermeture du modal" tabindex="1"/>
         </header>
         <form>
-            <div>
+            <div class="input-group">
                 <label for="firstname">Prénom</label>
-                <input id="firstname" type="text" tabindex="1"/>
+                <input id="firstname" type="text" class="input" placeholder="3 caractères minimum" maxlength="24" autocomplete="off" tabindex="2" aria-describedby="firstname-error"/>
+                <span id="firstname-error" class="error-msg" aria-hidden="true">Votre prénom doit contenir au moins 3 caractères.</span>
             </div>
-            <button class="contact_button" aria-label="Envoyer le formulaire de contact" tabindex="2">Envoyer</button>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" class="input" placeholder="votre email" autocomplete="off" tabindex="3" aria-describedby="email-error"/>
+                <span id="email-error" class="error-msg" aria-hidden="true">Rentrez un email valide.</span>
+            </div>
+            <div class="input-group">
+                <label for="message">Votre message</label>
+                <textarea id="message" type="text" class="input" name="message" placeholder="100 caractères minimum" maxlength="400" tabindex="4" aria-describedby="message-error"></textarea>
+                <span id="message-error" class="error-msg" aria-hidden="true">Nombre de 100 caractères minimum</span>
+            </div>
+            <button type="submit" class="contact_button" aria-label="Envoyer le formulaire de contact" tabindex="5">Envoyer</button>
         </form>
     </div>
 </div>

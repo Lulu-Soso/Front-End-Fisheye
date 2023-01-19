@@ -37,15 +37,21 @@ async function displayPhotographerMedias() {
 }
 
 async function initFilter() {
+    // Récupère la liste des médias du photographe
     let medias = await getPhotographerMedias(id);
+    // Récupère l'élément HTML pour le sélecteur de filtre
     let selectFilter = document.getElementById('media_filter');
+    // selectFilter.setAttribute("aria-label", "Sélecteur de filtre des médias");
+    // selectFilter.setAttribute("tabindex", "6");
 
-    // On change
+    // Lorsque le filtre est modifié
     selectFilter.addEventListener('change', async function () {
+        // Récupère la valeur du filtre sélectionné
         let filter = selectFilter.value
+        // Applique le filtre sur la liste des médias
         medias = await filterMedia(medias, filter)
 
-        // Afficher les medias filtrés
+        // Affiche les médias filtrés
         await displayMedias(medias)
     })
 }
@@ -53,11 +59,13 @@ async function initFilter() {
 async function filterMedia(medias, filter) {
     switch (filter) {
         case 'date':
+            // Trie les médias par date
             medias.sort(function (a, b) {
                 return new Date(b.date) - new Date(a.date)
             })
             break;
         case 'title':
+            // Trie les médias par titre
             medias.sort(function (a, b) {
                 if (a.title < b.title) { return -1; }
                 if (a.title > b.title) { return 1; }
@@ -65,6 +73,7 @@ async function filterMedia(medias, filter) {
             })
             break;
         default:
+            // Trie les médias par nombre de likes
             medias.sort(function (a, b) {
                 return b.likes - a.likes
             })

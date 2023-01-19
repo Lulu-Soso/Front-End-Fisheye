@@ -1,6 +1,4 @@
-export { photographerFactory };
-
-function photographerFactory(data) {
+export function photographerFactory(data) {
   const { id, name, portrait, city, tagline, price } = data;
 
   const mediaPath = name.replace(/ /g, '-')
@@ -34,33 +32,46 @@ function photographerFactory(data) {
   }
 
   function getUserPageDOM() {
-    const photographerHeader = document.querySelector(".photograph-header");
+    const article = document.createElement("article");
     const contactHeader = document.querySelector(".modal");
+
+    const modalButton = document.createElement("button")
+    modalButton.classList.add("contact_button")
+    modalButton.innerHTML= "Contactez-moi"
+    modalButton.setAttribute("aria-label", "bouton ouverture modale")
+    modalButton.setAttribute("id", "modal-button")
+    modalButton.setAttribute("role", "button")
+    modalButton.onclick = displayModal;
+
     const h3 = document.createElement("h3");
     h3.textContent = name;
     const div = document.createElement("div");
     div.classList.add("infos-photographer");
     const divInfosPhotographer = div;
-    const a = document.createElement("a");
-    (a.href = photographerId), (a.title = name);
+
     const img = document.createElement("img");
     img.setAttribute("src", picture);
+    img.setAttribute("aria-label", "image du photographe")
+    img.setAttribute("alt", "image du  photographe")
+
     const h2 = document.createElement("h2");
+    h2.ariaLabel = "nom du photographe";
     h2.textContent = name;
     const dataCity = document.createElement("h4");
     dataCity.textContent = city;
     const dataTagline = document.createElement("p");
     dataTagline.textContent = tagline;
 
-    photographerHeader.appendChild(a);
-    contactHeader.appendChild(h3);
-    a.appendChild(img);
-    photographerHeader.appendChild(divInfosPhotographer);
+    article.appendChild(divInfosPhotographer);
+    article.appendChild(modalButton);
+    article.appendChild(img);
+
     divInfosPhotographer.appendChild(h2);
     divInfosPhotographer.appendChild(dataCity);
     divInfosPhotographer.appendChild(dataTagline);
+    contactHeader.appendChild(h3);
 
-    return divInfosPhotographer;
+    return article;
   }
 
   function getInsertDOM() {

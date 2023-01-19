@@ -13,33 +13,59 @@
 .photograph-header {
     background-color: #fafafa;
     height: 300px;
-    /*margin: 0 100px;*/
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 50px;
 }
 
-.photograph-header .infos-photographer {
-    order: -1;
+.photograph-header article {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.photograph-header article .infos-photographer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.photograph-header h2 {
+.photograph-header article h2 {
     color: #d3573c;
     font-size: 64px;
     font-weight: 400;
     margin: 0;
 }
 
-.photograph-header img {
+.photograph-header article img {
     height: 200px;
     width: 200px;
     border-radius: 50%;
     object-fit: cover;
 }
+
+/*.photograph-header .infos-photographer {*/
+/*    !*order: -1;*!*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.photograph-header h2 {*/
+/*    color: #d3573c;*/
+/*    font-size: 64px;*/
+/*    font-weight: 400;*/
+/*    margin: 0;*/
+/*}*/
+
+/*.photograph-header img {*/
+/*    height: 200px;*/
+/*    width: 200px;*/
+/*    border-radius: 50%;*/
+/*    object-fit: cover;*/
+/*}*/
 
 .photograph-header h4 {
     color: #d3573c;
@@ -49,7 +75,6 @@
 }
 
 .photograph-header p {
-    margin: 2px;
     font-size: 18px;
     font-weight: 400;
     color: #525252;
@@ -83,8 +108,20 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 35px;
-    margin: auto;
-    margin-top: 300px;
+    margin: 30px auto;
+}
+
+.modal.shake {
+    animation: shake 0.4s;
+}
+
+@keyframes shake  {
+    33% {
+        transform: translateX(-5px);
+    }
+    66% {
+        transform: translateX(+5px);
+    }
 }
 
 .modal h3 {
@@ -94,6 +131,7 @@
 }
 
 .modal header {
+    display: flex;
     justify-content: space-between;
     width: 100%;
 }
@@ -106,6 +144,7 @@
     font-size: 64px;
     font-weight: normal;
     text-align: center;
+    margin: 0;
 }
 
 form {
@@ -130,18 +169,57 @@ form div {
     margin-bottom: 26px;
 }
 
-form input {
+input[type="text"],
+input[type="email"] {
     width: 100%;
     height: 68px;
-    border: none;
+    border: 2px solid transparent;
     border-radius: 5px;
+    font-size: 25px;
+    outline: none;
 }
 
-/*main {*/
-/*  width: 90%;*/
-/*  max-width: 1400px;*/
-/*  margin: auto;*/
-/*}*/
+input[type="text"]:focus,
+input[type="email"]:focus {
+    border: 3px solid #5ef9a4;
+
+}
+
+textarea {
+    font-size: 25px;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 150px;
+    max-height: 200px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+input::placeholder {
+    color: lightgray;
+    font-size: 1em;
+    padding-left: 0.5em;
+}
+
+textarea::placeholder {
+    color: lightgray;
+    font-size: 1em;
+    padding: 0.5em;
+}
+
+textarea:focus {
+    border: 3px solid #5ef9a4;
+}
+.error-msg {
+    margin-top: 7px;
+    /*color: #f75252;*/
+    color: red;
+    background-color: white;
+    font-weight: 400;
+    display: none;
+    padding: 0 0.5em;
+}
 
 .insert {
     background-color: #db8876;
@@ -156,11 +234,6 @@ form input {
     justify-content: space-around;
     align-items: center;
 }
-
-/* .insert .numb-likes {
-    font-size: 24px;
-    font-weight: 500;
-} */
 
 .insert span {
     font-size: 24px;

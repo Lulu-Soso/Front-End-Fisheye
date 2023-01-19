@@ -13,11 +13,21 @@ body {
 
 
 header {
+    display: block;
+}
+header .header-top {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 90px;
+}
+
+main header .photograph-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 h1 {

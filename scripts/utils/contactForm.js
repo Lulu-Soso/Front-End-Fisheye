@@ -1,6 +1,8 @@
 function displayModal() {
     const modal = document.getElementById("contact_modal");
+    modal.tabIndex = 1;
 	modal.style.display = "block";
+    modal.focus();
 
     const closeButton = document.querySelector("img.close");
     closeButton.addEventListener("click", closeModal);
@@ -15,4 +17,188 @@ function displayModal() {
 function closeModal() {
     const modal = document.getElementById("contact_modal");
     modal.style.display = "none";
+    modal.blur();
+    form.reset();
 }
+
+
+/////////////////////// form ///////////////////////////////////////
+const inputColor = document.querySelectorAll("input");
+const textareaColor = document.querySelector("textarea");
+const validationTexts = document.querySelectorAll(".error-msg");
+const inputs = document.querySelectorAll('input[type="text"], input[type="email"]'
+);
+
+const inputsValidity = {
+    firstname: false,
+    email: false,
+    message: false
+}
+
+const form = document.querySelector("form");
+const modalContainer = document.querySelector(".modal");
+
+form.addEventListener("submit", handleForm)
+
+let isAnimating = false;
+function handleForm(e){
+    e.preventDefault()
+
+    const keys = Object.keys(inputsValidity)
+    const failedInputs = keys.filter(key => !inputsValidity[key])
+
+    if(failedInputs.length && !isAnimating) {
+        isAnimating = true;
+        modalContainer.classList.add("shake");
+
+        setTimeout(() =>{
+            modalContainer.classList.remove("shake")
+            isAnimating = false;
+        }, 100)
+
+        failedInputs.forEach(input => {
+            const index = keys.indexOf(input)
+            showValidation({index: index, validation: false})
+        })
+    }
+    else {
+        closeModal()
+    }
+
+}
+
+function showValidation({index, validation}) {
+    if(validation){
+        if(validationTexts[index])  {
+            validationTexts[index].style.display = "none";
+        }
+    }
+    else {
+        if(validationTexts[index]) {
+            validationTexts[index].style.display = "block";
+        }
+    }
+}
+let firstname;
+let email;
+let message;
+
+const firstnameInput = document.querySelector(".input-group:nth-child(1) input")
+firstnameInput.addEventListener("blur", userValidation)
+firstnameInput.addEventListener("input", userValidation)
+function userValidation(){
+    if(firstnameInput.value.length >= 3) {
+        inputColor[0].style.color = "black";
+        showValidation({index: 0, validation: true})
+        inputsValidity.firstname = true;
+
+        firstname = firstnameInput.value
+
+        console.log(firstname)
+    }
+    else {
+        inputColor[0].style.color = "red";
+        showValidation({index: 0, validation: false})
+        inputsValidity.firstname = false;
+    }
+}
+
+const mailInput = document.querySelector(".input-group:nth-child(2) input")
+mailInput.addEventListener("blur", mailValidation)
+mailInput.addEventListener("input", mailValidation)
+
+const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+
+function mailValidation(){
+    if(regexEmail.test(mailInput.value)){
+        inputColor[1].style.color = "black";
+        showValidation({index: 1, validation: true})
+        inputsValidity.email = true;
+
+        email = mailInput.value
+    }
+    else {
+
+        inputColor[1].style.color = "red";
+        showValidation({index: 1, validation: false})
+        inputsValidity.email = false;
+    }
+    console.log(email)
+}
+
+const messageInput = document.querySelector(".input-group:nth-child(3) textarea")
+messageInput.addEventListener("blur", messageValidation)
+messageInput.addEventListener("input", messageValidation)
+
+function messageValidation(){
+    if(messageInput.value.length >= 20) {
+        textareaColor.style.color = "black";
+        showValidation({index: 2, validation: true})
+        inputsValidity.message = true;
+
+        message = messageInput.value
+    }
+    else {
+        textareaColor.style.color = "red";
+        showValidation({index: 2, validation: false})
+        inputsValidity.message = false;
+    }
+}
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (firstname && email && message) {
+        const data = {
+            firstname,
+            email,
+            message,
+        };
+        console.log(data);
+
+        inputs.forEach((input) => (input.value = ""));
+        firstname = null;
+        email = null;
+        message = null;
+        // console.log(firstname, email, message)
+        alert("Inscription validée !");
+    } else {
+        // alert("veuillez remplir correctement les champs");
+        return false
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

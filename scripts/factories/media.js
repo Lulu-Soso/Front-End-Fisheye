@@ -5,6 +5,7 @@ export async function mediaFactory(index, data) {
     let {id, photographerId, title, image, likes, date, price, video} = data;
 
     const photographer = await getPhotographer(photographerId)
+    // console.log(photographer);
     const directoryName = photographer.name.replace(/ /g, '-')
 
     const imgMedia = `assets/medias/${directoryName}/${image}`;
@@ -39,11 +40,14 @@ export async function mediaFactory(index, data) {
         const likeHeartContent = document.createElement("div");
         likeHeartContent.classList.add("like-heart")
         const pHeart = document.createElement("button");
+        pHeart.setAttribute("aria-label", "like")
         pHeart.innerHTML = "<i class='fa-regular fa-heart'></i>"
 
         const spanElement = document.createElement("span");
         spanElement.textContent = likes;
 
+
+        // incrémentation des likes au clique
         pHeart.addEventListener('click', () => {
             let numberLikes = document.querySelector('.numb-likes')
             let totalLikes = parseInt(numberLikes.innerText)
@@ -51,32 +55,35 @@ export async function mediaFactory(index, data) {
             if (data.likes === likes){
                 likes = data.likes + 1
 
-                spanElement.textContent = likes;
+                // changement de icon solid heart
                 pHeart.innerHTML = "<i class='fa-solid fa-heart'></i>"
 
                 totalLikes += 1;
             }else{
+                // Remettre "likes" à la valeur de "data.likes"
                 likes = data.likes
-
-                spanElement.textContent = likes;
+                // icon heart à état initial
                 pHeart.innerHTML = "<i class='fa-regular fa-heart'></i>"
 
                 totalLikes -= 1;
             }
-
             numberLikes.innerText = totalLikes;
+            // numberLikes.setAttribute("aria-label", "bombre de likes")
         })
 
+        // crée attributs si media image ou media video
         let mediaElement;
         if (image) {
             mediaElement = getMediaElement("image");
             mediaElement.setAttribute("src", imgMedia);
+            mediaElement.ariaLabel ="média image"
 
             a.setAttribute("href", imgMedia)
         } else if (video) {
             mediaElement = getMediaElement("video");
             mediaElement.setAttribute("src", vMedia);
             mediaElement.setAttribute("controls", null);
+            mediaElement.ariaLabel ="média video"
 
             a.setAttribute("href", vMedia)
         } else {

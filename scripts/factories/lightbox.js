@@ -38,7 +38,7 @@ lightboxDom.setAttribute("tabindex", "0");
     }))
 
     // Assignation du click sur le clavier
-    document.addEventListener('keydown', onKeyUp, true)
+    document.addEventListener('keyup', onKeyUp, true)
   }
 
   // Fonction qui supprime l'élément lightboxDom du DOM lorsqu'elle est appelée
@@ -63,7 +63,6 @@ lightboxDom.setAttribute("tabindex", "0");
   function next(e) {
     // Empêche l'événement par défaut (par exemple, l'ouverture d'un lien)
     e.preventDefault();
-    // Affiche le média suivant en utilisant la fonction buildLightboxDOM. Si le média courant est le dernier de la liste, affiche le premier média de la liste.
     // La condition ternaire vérifie si "currentPosition" est égal à la longueur de "medias" moins 1.
     // Si c'est vrai, la valeur passée à la fonction "buildLightboxDOM" sera 0.
     // Si c'est faux, la valeur passée à la fonction "buildLightboxDOM" sera "currentPosition" augmenté de 1.
