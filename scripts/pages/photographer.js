@@ -135,5 +135,5 @@ async function init() {
 }
 
 // Initialisation
-init().then((r) => {
+init().then(() => {
 });

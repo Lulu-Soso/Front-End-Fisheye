@@ -18,4 +18,4 @@ async function init() {
   await displayData(photographers);
 }
 
-init().then((r) => {});
+init().then(() => {});
