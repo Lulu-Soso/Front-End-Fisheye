@@ -29,7 +29,11 @@
     border-bottom: 1px solid #fff;
 }
 
+option[selected] {
+    display: none;
+ }
 
+ 
 .medias_section {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

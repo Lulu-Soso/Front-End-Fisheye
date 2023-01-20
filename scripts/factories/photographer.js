@@ -49,6 +49,8 @@ export function photographerFactory(data) {
     div.classList.add("infos-photographer");
     const divInfosPhotographer = div;
 
+    const a = document.createElement("a");
+    (a.href = "#"), (a.title = name), (a.ariaLabel = "image du photographe");
     const img = document.createElement("img");
     img.setAttribute("src", picture);
     img.setAttribute("aria-label", "image du photographe")
@@ -64,7 +66,8 @@ export function photographerFactory(data) {
 
     article.appendChild(divInfosPhotographer);
     article.appendChild(modalButton);
-    article.appendChild(img);
+    article.appendChild(a);
+    a.appendChild(img);
 
     divInfosPhotographer.appendChild(h2);
     divInfosPhotographer.appendChild(dataCity);
