@@ -14,8 +14,8 @@
     height: 30px;
     background-color: #901C1C;
     padding-left: 10px;
-    border: none;
-    outline: none;
+    /* border: none; */
+    /* outline: none; */
     border-bottom: 1px solid white;
     color: white;
     font-size: 18px;
@@ -25,7 +25,7 @@
 .medias_filter option {
     font-size: 18px;
     font-weight: 700;
-    /*background-color: #901C1C;*/
+    /* background-color: #901C1C; */
     border-bottom: 1px solid #fff;
 }
 
@@ -39,11 +39,6 @@ option[selected] {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
     margin-top: 50px;
-    /*position: absolute;*/
-    /*width: 100%;*/
-    /*display: flex;*/
-    /*justify-content: space-between;*/
-    /*flex-wrap: wrap;*/
 }
 
 .medias_section article {

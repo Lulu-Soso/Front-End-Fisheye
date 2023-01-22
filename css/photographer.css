@@ -100,6 +100,17 @@
     cursor: pointer;
 }
 
+.contact_button:hover {
+    color: black;
+    background-color: #DB8876;
+    ;
+}
+
+form .contact_button:hover {
+    color: white;
+    background-color:#901c1c;
+}
+
 .modal {
     border-radius: 5px;
     background-color: #db8876;
